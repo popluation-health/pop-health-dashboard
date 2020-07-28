@@ -1,22 +1,31 @@
 package org.pophealth.service;
 
+import java.text.NumberFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
 import org.pophealth.model.Reward;
 import org.pophealth.model.RewardCategoryGroup;
+import org.pophealth.model.RewardProgram;
 
 @ApplicationScoped
-public class RewardService {
+public class RewardsService {
 
+    private NumberFormat usd = NumberFormat.getCurrencyInstance(Locale.US);
     @Transactional
     public void createReward(Reward reward) {
         reward.persist();
+    }
+
+    @Transactional
+    public void createProgram(RewardProgram program) {
+        program.persist();
     }
 
     public List<Reward> getAllRewards() {
@@ -71,5 +80,16 @@ public class RewardService {
         }
 
         return groups;
+    }
+
+    public String getRewardsBudget(long id ){
+        RewardProgram program = RewardProgram.find("id", id).firstResult();
+
+        String programBudget = "";
+        if(program!=null) {
+            programBudget = usd.format(program.rewardsBudget);
+        }
+
+        return programBudget;
     }
 }

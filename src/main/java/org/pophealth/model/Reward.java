@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Reward  extends PanacheEntity {
+public class Reward extends PanacheEntity {
 
 
     private String rewardName;
