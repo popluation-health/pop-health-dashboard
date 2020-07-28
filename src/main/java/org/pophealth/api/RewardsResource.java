@@ -71,13 +71,13 @@ public class RewardsResource {
     @GET
     @Path("/rewardsBudget/{programId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getRewardsBudget(@PathParam("programId")long programId) {
+    public Double getRewardsBudget(@PathParam("programId")long programId) {
         return rewardService.getRewardsBudget(programId);
     }
 
     @POST
     @Path("/rewardsProgram")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public void createRewardsProgram(RewardProgram program) {
         rewardService.createProgram(program);
     }

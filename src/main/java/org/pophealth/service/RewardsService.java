@@ -82,12 +82,12 @@ public class RewardsService {
         return groups;
     }
 
-    public String getRewardsBudget(long id ){
+    public Double getRewardsBudget(long id ){
         RewardProgram program = RewardProgram.find("id", id).firstResult();
 
-        String programBudget = "";
+        Double programBudget = 0.0;
         if(program!=null) {
-            programBudget = usd.format(program.rewardsBudget);
+            programBudget = program.getRewardsBudget();
         }
 
         return programBudget;
